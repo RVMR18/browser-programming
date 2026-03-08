@@ -157,29 +157,36 @@ function renderCounter() {
   // TODO:
   // countOut.innerText = `Count: ${counterState.count}`;
   // parityOut.innerText = `Parity: ${counterState.count % 2 === 0 ? "EVEN" : "ODD"}`;
-  countOut.innerText = "Count: (TODO)";
-  parityOut.innerText = "Parity: (TODO)";
+  countOut.innerText = `Count: ${counterState.count}`;
+  parityOut.innerText = `Parity: ${counterState.count % 2 === 0 ? "EVEN" : "ODD"}`;
 }
 
 btnPlus.onclick = function () {
   // TODO:
   // counterState.count++;
+  counterState.count++;
   // renderCounter();
+  renderCounter();
 };
 
 btnMinus.onclick = function () {
   // TODO:
   // counterState.count--;
+  counterState.count--;
   // renderCounter();
+  renderCounter();
 };
 
 btnZero.onclick = function () {
   // TODO:
   // counterState.count = 0;
+  counterState.count = 0;
   // renderCounter();
+  renderCounter();
 };
 
 // TODO: initial renderCounter()
+renderCounter();
 
 
 /* =========================================================
@@ -205,43 +212,58 @@ const cartState = { items: [] };
 function dispatch(action) {
   // TODO:
   // if (action.type === "ADD") { cartState.items.push(action.item); }
+  if (action.type === "ADD") { cartState.items.push(action.item); }
   // else if (action.type === "REMOVE_LAST") { if (cartState.items.length > 0) cartState.items.pop(); }
+  else if (action.type === "REMOVE_LAST") { if (cartState.items.length > 0) cartState.items.pop(); }
   // else if (action.type === "CLEAR") { cartState.items = []; }
+  else if (action.type === "CLEAR") { cartState.items = []; }
   //
   // renderCart();
+  renderCart();
 }
 
 function renderCart() {
   // TODO:
   // const names = cartState.items.map(it => it.name);
+  const names = cartState.items.map(it => it.name);
   // const listText = names.length === 0 ? "(empty)" : names.join(", ");
+  const listText = names.length === 0 ? "(empty)" : names.join(", ");
   //
   // let total = 0;
+  let total = 0;
   // for (const it of cartState.items) total += it.price;
+  for (const it of cartState.items) total += it.price;
   //
   // cartOut.innerText = `Cart: ${listText}`;
+  cartOut.innerText = `Cart: ${listText}`;
   // cartTotals.innerText = `Items: ${cartState.items.length} | Total: €${total}`;
-  cartOut.innerText = "Cart: (TODO)";
-  cartTotals.innerText = "Items: (TODO) | Total: (TODO)";
+  cartTotals.innerText = `Items: ${cartState.items.length} | Total: €${total}`;
+  cartOut.innerText = `Cart: ${listText}`;
+  cartTotals.innerText = `Items: ${cartState.items.length} | Total: €${total}`;
 }
 
 btnAddApple.onclick = function () {
   // TODO: dispatch({ type: "ADD", item: { name: "Apple", price: 2 } });
+  dispatch({ type: "ADD", item: { name: "Apple", price: 2 } });
 };
 
 btnAddBanana.onclick = function () {
   // TODO: dispatch({ type: "ADD", item: { name: "Banana", price: 1 } });
+  dispatch({ type: "ADD", item: { name: "Banana", price: 1 } });
 };
 
 btnRemoveLast.onclick = function () {
   // TODO: dispatch({ type: "REMOVE_LAST" });
+  dispatch({ type: "REMOVE_LAST" });
 };
 
 btnCartClear.onclick = function () {
   // TODO: dispatch({ type: "CLEAR" });
+  dispatch({ type: "CLEAR" });
 };
 
 // TODO: initial renderCart()
+renderCart()
 
 
 /* =========================================================
@@ -261,8 +283,10 @@ const NOTE_KEY = "L05_NOTE";
 function renderNote(saved) {
   // TODO:
   // if (saved === null || saved === "") noteOut.innerText = "Saved note: (none)";
+  if (saved === null || saved === "") noteOut.innerText = "Saved note: (none)";
   // else noteOut.innerText = `Saved note: ${saved}`;
-  noteOut.innerText = "Saved note: (TODO)";
+  else noteOut.innerText = `Saved note: ${saved}`;
+  noteOut.innerText = `Saved note: ${saved}`;
 }
 
 btnSaveNote.onclick = function () {
@@ -270,23 +294,31 @@ btnSaveNote.onclick = function () {
 
   // TODO:
   // localStorage.setItem(NOTE_KEY, text);
+  localStorage.setItem(NOTE_KEY, text);
   // renderNote(text);
+   renderNote(text);
   // noteInput.value = "";
+  noteInput.value = "";
 };
 
 btnLoadNote.onclick = function () {
   // TODO:
   // const saved = localStorage.getItem(NOTE_KEY);
+  const saved = localStorage.getItem(NOTE_KEY);
   // renderNote(saved);
+  renderNote(saved);
 };
 
 btnClearNote.onclick = function () {
   // TODO:
   // localStorage.removeItem(NOTE_KEY);
+  localStorage.removeItem(NOTE_KEY);
   // renderNote(null);
+  renderNote(null);
 };
 
 // TODO: optional: renderNote(localStorage.getItem(NOTE_KEY)) on page load
+renderNote(localStorage.getItem(NOTE_KEY))
 
 
 /* =========================================================
@@ -307,47 +339,80 @@ const geoOut = document.getElementById("geoOut");
 function clearGeoUI() {
   // TODO:
   // geoStatus.innerText = "Status: ...";
+  geoStatus.innerText = "Status: ...";
   // geoOut.innerText = "...";
+  geoOut.innerText = "...";
 }
+
 
 btnGetLocation.onclick = function () {
   // TODO:
   // if (!("geolocation" in navigator)) {
+     if (!("geolocation" in navigator)) {
   //   geoStatus.innerText = "Status: Error: Geolocation not supported";
+       geoStatus.innerText = "Status: Error: Geolocation not supported";
   //   geoOut.innerText = "";
+       geoOut.innerText = "";
   //   return;
+       return;
   // }
+     }
   //
   // geoStatus.innerText = "Status: Requesting permission...";
+     geoStatus.innerText = "Status: Requesting permission...";
   // geoOut.innerText = "";
+     geoOut.innerText = "";
   //
   // const options = { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 };
+     const options = { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 };
   //
   // navigator.geolocation.getCurrentPosition(
+     navigator.geolocation.getCurrentPosition(
   //   function success(pos) {
+       function success(pos) {
   //     const { latitude, longitude, accuracy } = pos.coords;
+         const { latitude, longitude, accuracy } = pos.coords;
   //     geoStatus.innerText = "Status: OK";
+         geoStatus.innerText = "Status: OK";
   //     geoOut.innerText =
+         geoOut.innerText =
   //       `latitude:  ${latitude}\n` +
+           `latitude:  ${latitude}\n` +
   //       `longitude: ${longitude}\n` +
+           `longitude: ${longitude}\n` +
   //       `accuracy:  ${accuracy} meters\n` +
+           `accuracy:  ${accuracy} meters\n` +
   //       `timestamp: ${new Date(pos.timestamp).toISOString()}`;
+           `timestamp: ${new Date(pos.timestamp).toISOString()}`;
   //   },
+       },
   //   function error(err) {
+       function error(err) {
   //     let msg = err.message;
+         let msg = err.message;
   //     if (err.code === 1) msg = "Permission denied";
+         if (err.code === 1) msg = "Permission denied";
   //     else if (err.code === 2) msg = "Position unavailable";
+         else if (err.code === 2) msg = "Position unavailable";
   //     else if (err.code === 3) msg = "Timeout";
+         else if (err.code === 3) msg = "Timeout";
   //
   //     geoStatus.innerText = `Status: Error: ${msg}`;
+         geoStatus.innerText = `Status: Error: ${msg}`;
   //     geoOut.innerText = "";
+         geoOut.innerText = "";
   //   },
+       },
   //   options
+       options
   // );
+     );
 };
 
 btnClearLocation.onclick = function () {
   // TODO: clearGeoUI();
+     clearGeoUI();
 };
 
 // TODO: call clearGeoUI() once on page load
+   clearGeoUI()
