@@ -49,8 +49,8 @@ function waitOneSecond() {
 
         // After 1 second, resolve the Promise.
         setTimeout(function () {
-            resolve("Promise resolved!");
-        }, 10000);
+            resolve("Promise resolved after 1 second!");
+        }, 1000);
     });
 }
 
@@ -76,11 +76,13 @@ document.getElementById("btnPromise").onclick = function () {
 async function runAwaitExample() {
 
     clearOutput();
-    setStatus("Waiting (await)...");
+    setStatus("Please wait, async/await running...");
 
     // 'await' pauses this function until the Promise resolves.
     // It does NOT freeze the browser.
+    log("Before await");
     const result = await waitOneSecond();
+    log("After await");
 
     log(result);
     setStatus("Idle");
@@ -104,7 +106,7 @@ async function runFetchExample() {
 
         // Send request to server
         const response = await fetch(
-            "https://jsonplaceholder.typicode.com/todos/1"
+            "https://jsonplaceholder.typicode.com/todos/999999"
         );
 
         // Check if HTTP status is OK (200–299)
@@ -114,7 +116,7 @@ async function runFetchExample() {
 
         // Convert response body to JSON (this is also async!)
         const data = await response.json();
-
+        log("ID: " + data.id);
         log("Title: " + data.title);
         log("Completed: " + data.completed);
 
